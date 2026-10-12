@@ -25,7 +25,7 @@ export default function LanLobby() {
   };
 
   return (
-    <div className="relative overflow-hidden border border-line bg-[#0f120d] p-4 md:p-6" style={{ backgroundImage: "radial-gradient(var(--color-line) 1px, transparent 1px)", backgroundSize: "16px 16px" }}>
+    <div className="relative overflow-hidden border border-line bg-surface p-4 md:p-6">
       <div className="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
         {players.map((p, i) => (
           <div key={p} className="flex flex-col items-center">
@@ -48,7 +48,7 @@ export default function LanLobby() {
                 <div className="absolute inset-x-3 bottom-3 h-1.5 bg-accent-ink/70" />
               </motion.div>
               <span className="mono text-xs">{p}</span>
-              <span className={`mono border px-2 py-0.5 text-[0.7rem] ${ready[i] ? "border-accent text-accent" : "border-line-strong text-mute"}`}>
+              <span className={`mono border px-2 py-0.5 text-[0.7rem] ${ready[i] ? "border-accent text-signal" : "border-line-strong text-mute"}`}>
                 {ready[i] ? "ready" : "waiting"}
               </span>
             </button>

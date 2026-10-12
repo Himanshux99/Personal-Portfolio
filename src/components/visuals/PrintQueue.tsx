@@ -18,11 +18,14 @@ const start: Job[] = [
   { id: 1, file: "java-notes-unit3.pdf", pages: 14, mode: "B/W, duplex", state: "ready" },
   { id: 2, file: "cn-lab-manual.pdf", pages: 22, mode: "B/W", state: "printing" },
   { id: 3, file: "poster-draft.pdf", pages: 1, mode: "Colour, A3", state: "queued" },
+  { id: 4, file: "dbms-lab-record.pdf", pages: 18, mode: "B/W, duplex", state: "queued" },
+  { id: 5, file: "nss-camp-report.pdf", pages: 9, mode: "Colour", state: "queued" },
+  { id: 6, file: "internship-letter.pdf", pages: 2, mode: "B/W", state: "queued" },
 ];
 
 export default function PrintQueue() {
   const [jobs, setJobs] = useState<Job[]>(start);
-  const nextId = useRef(4);
+  const nextId = useRef(7);
   const nameIdx = useRef(0);
 
   const advance = (id: number) =>
@@ -33,7 +36,7 @@ export default function PrintQueue() {
   const submit = () => {
     const file = names[nameIdx.current++ % names.length];
     setJobs((js) => [
-      ...js.slice(-3),
+      ...js.slice(-5),
       { id: nextId.current++, file, pages: 4 + ((nextId.current * 7) % 20), mode: "B/W", state: "queued" },
     ]);
   };
@@ -74,7 +77,7 @@ export default function PrintQueue() {
                   j.state === "ready"
                     ? "border-accent bg-accent text-accent-ink"
                     : j.state === "printing"
-                      ? "border-accent text-accent hover:bg-accent/10"
+                      ? "border-accent text-signal hover:bg-accent/10"
                       : "border-line-strong text-mute hover:border-ink hover:text-ink"
                 }`}
               >

@@ -30,7 +30,7 @@ export default function LoanReview() {
             <li key={f.label} onMouseEnter={() => setHover(i)} onMouseLeave={() => setHover(null)}>
               <div className="flex items-baseline justify-between gap-4 text-sm">
                 <span className={hover === i ? "text-ink" : "text-ink/80"}>{f.label}</span>
-                <span className={`mono text-xs ${f.value > 0 ? "text-accent" : "text-warn"}`}>
+                <span className={`mono text-xs ${f.value > 0 ? "text-ink" : "text-warn"}`}>
                   {f.value > 0 ? "raises" : "lowers"}
                 </span>
               </div>
@@ -38,7 +38,7 @@ export default function LoanReview() {
                 <span className="absolute inset-y-0 left-1/2 w-px bg-line-strong" aria-hidden />
                 <motion.span
                   aria-hidden
-                  className={`absolute inset-y-0 ${f.value > 0 ? "left-1/2 origin-left bg-accent" : "right-1/2 origin-right bg-warn"}`}
+                  className={`absolute inset-y-0 ${f.value > 0 ? "left-1/2 origin-left bg-ink" : "right-1/2 origin-right bg-accent"}`}
                   style={{ width: `${Math.abs(f.value) * 50}%` }}
                   initial={{ scaleX: 0 }}
                   whileInView={{ scaleX: 1 }}

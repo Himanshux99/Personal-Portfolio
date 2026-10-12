@@ -74,19 +74,19 @@ export default function CanarySim() {
         <div className="relative h-14 overflow-hidden border border-line-strong bg-bg">
           <div className="absolute inset-0 flex">
             <motion.div
-              className="h-full bg-line-strong"
+              className="h-full bg-line"
               animate={{ width: `${100 - canary}%` }}
               transition={{ type: "spring", stiffness: 140, damping: 22 }}
             />
             <motion.div
-              className={`h-full ${breached ? "bg-warn" : "bg-accent"}`}
+              className={`h-full ${breached ? "bg-accent" : "bg-ink"}`}
               animate={{ width: `${canary}%` }}
               transition={{ type: "spring", stiffness: 140, damping: 22 }}
             />
           </div>
           <div className="relative flex h-full items-center justify-between px-4 mono text-sm">
             <span className="text-ink">v1 stable {100 - canary}%</span>
-            <span className={canary > 0 ? "font-medium text-accent-ink" : "text-mute"}>
+            <span className={canary > 0 ? (breached ? "font-medium text-accent-ink" : "font-medium text-bg") : "text-mute"}>
               {canary > 0 ? `v2 canary ${canary}%` : "v2 idle"}
             </span>
           </div>
@@ -130,7 +130,7 @@ export default function CanarySim() {
               key={l.id}
               initial={{ opacity: 0, x: -8 }}
               animate={{ opacity: 1, x: 0 }}
-              className={l.tone === "bad" ? "text-warn" : l.tone === "ok" ? "text-accent" : "text-mute"}
+              className={l.tone === "bad" ? "text-warn" : l.tone === "ok" ? "font-medium text-ink" : "text-mute"}
             >
               {l.text}
             </motion.li>

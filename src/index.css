@@ -3,38 +3,40 @@
 @import "@fontsource-variable/geist-mono";
 
 /*
- * Design tokens. Change the palette here and the whole site follows.
- * One theme (dark), one accent, one radius.
+ * Design tokens. The look is a technical drawing sheet: warm paper, ink linework,
+ * one blue annotation colour. Change the palette here and the whole site follows.
  */
 @theme {
-  --color-bg: #0c0d0b;
-  --color-surface: #11130f;
-  --color-raised: #171914;
-  --color-line: #262922;
-  --color-line-strong: #3b3f34;
-  --color-ink: #ece9e1;
-  --color-mute: #92958a;
-  --color-accent: #c8f751;
-  --color-accent-ink: #10130a;
-  --color-warn: #e9805f;
+  --color-bg: #f3f5f9;
+  --color-surface: #e9edf4;
+  --color-raised: #dde3ee;
+  --color-line: #cdd5e3;
+  --color-line-strong: #9aa6bd;
+  --color-ink: #0b1220;
+  --color-mute: #556176;
+  --color-accent: #3085fe;
+  --color-accent-ink: #0b1220;
+  /* Darker blue for small text on paper (passes AA). */
+  --color-signal: #1a62d6;
+  --color-warn: #09b417;
 
   --font-sans: "Geist Variable", ui-sans-serif, system-ui, sans-serif;
   --font-mono: "Geist Mono Variable", ui-monospace, "SFMono-Regular", monospace;
 
-  --radius-sm: 2px;
-  --radius-md: 2px;
-  --radius-lg: 2px;
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 :root {
-  color-scheme: dark;
+  color-scheme: light;
 }
 
 html {
   scroll-behavior: smooth;
-  scroll-padding-top: 5rem;
+  scroll-padding-top: 4.5rem;
   background: var(--color-bg);
 }
 
@@ -56,134 +58,225 @@ body {
   overflow-x: clip;
 }
 
+/* Paper grain on a fixed, non-interactive layer so it never repaints with scroll. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  opacity: 0.07;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 .7 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
+}
+
 ::selection {
   background: var(--color-accent);
   color: var(--color-accent-ink);
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-accent);
+  outline: 2px solid var(--color-ink);
   outline-offset: 3px;
 }
 
 @layer components {
-/* Layout */
-.shell {
-  width: 100%;
-  max-width: 1360px;
-  margin-inline: auto;
-  padding-inline: 1.25rem;
-}
-@media (min-width: 768px) {
   .shell {
-    padding-inline: 2.5rem;
+    width: 100%;
+    max-width: 1520px;
+    margin-inline: auto;
+    padding-inline: 1.5rem;
   }
-}
+  @media (min-width: 768px) {
+    .shell {
+      padding-inline: 2.75rem;
+    }
+  }
 
-.section-pad {
-  padding-block: 6rem;
-}
-@media (min-width: 1024px) {
   .section-pad {
-    padding-block: 9rem;
+    padding-block: 5.5rem;
+  }
+  @media (min-width: 1024px) {
+    .section-pad {
+      padding-block: 8rem;
+    }
+  }
+
+  /* Type: uppercase, tight, heavy, as on a drawing title block */
+  .display {
+    font-weight: 650;
+    letter-spacing: -0.045em;
+    line-height: 0.92;
+    text-transform: uppercase;
+  }
+  .h2 {
+    font-size: clamp(2.2rem, 5.4vw, 4.75rem);
+    font-weight: 650;
+    letter-spacing: -0.045em;
+    line-height: 0.94;
+    text-transform: uppercase;
+  }
+  .label {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    color: var(--color-mute);
+  }
+  .mono {
+    font-family: var(--font-mono);
+  }
+
+  /* Buttons: ruled boxes, ink fill on hover */
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    min-height: 3rem;
+    padding: 0 1.25rem;
+    font-family: var(--font-mono);
+    font-size: 0.74rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    border: 1px solid var(--color-ink);
+    color: var(--color-ink);
+    background: transparent;
+    cursor: pointer;
+    transition:
+      background-color 0.25s var(--ease-out-expo),
+      color 0.25s var(--ease-out-expo),
+      border-color 0.25s var(--ease-out-expo);
+  }
+  .btn:not(.px):hover {
+    background: var(--color-ink);
+    color: var(--color-bg);
+  }
+  .btn:disabled {
+    opacity: 0.38;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+  .btn:active {
+    transform: translateY(1px);
+  }
+  .btn-primary {
+    background: var(--color-accent);
+    border-color: var(--color-accent);
+    color: var(--color-accent-ink);
+  }
+  .btn-primary:not(.px):hover {
+    background: var(--color-ink);
+    border-color: var(--color-ink);
+    color: var(--color-bg);
+  }
+  /* Pixel-fill controls (PixelButton): blocks sit under the label and flip on with staggered delays. */
+  .px {
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    transition:
+      color 0.08s linear 0.1s,
+      border-color 0.08s linear 0.1s;
+  }
+  .px[data-on="true"] {
+    color: var(--px-text);
+  }
+  /* on the way out, hold the light label until the blocks have mostly cleared */
+  .px:not([data-on="true"]) {
+    transition-delay: 0.3s;
+  }
+  .btn-primary.px[data-on="true"] {
+    border-color: var(--color-ink);
+  }
+  .px-layer {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    z-index: -1;
+    pointer-events: none;
+  }
+  .px-layer > i {
+    background: var(--px-fill);
+    opacity: 0;
+    transition: opacity 0.12s steps(2, jump-end);
+  }
+  .px[data-on="true"] > .px-layer > i {
+    opacity: 1;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .px,
+    .px-layer > i {
+      transition-duration: 0s;
+      transition-delay: 0s !important;
+    }
+  }
+
+  .btn-sm {
+    min-height: 2.25rem;
+    padding: 0 0.85rem;
+    font-size: 0.68rem;
+  }
+
+  .link-u {
+    background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
+    transition: background-size 0.4s var(--ease-out-expo);
+  }
+  .link-u:hover,
+  .link-u:focus-visible {
+    background-size: 100% 1px;
+  }
+
+  /* Dotted drafting grid behind visual panels */
+  .draft-dots {
+    background-image: radial-gradient(var(--color-line-strong) 0.8px, transparent 0.8px);
+    background-size: 18px 18px;
   }
 }
 
-/* Type */
-.display {
-  font-weight: 600;
-  letter-spacing: -0.045em;
-  line-height: 0.95;
-}
-.h2 {
-  font-size: clamp(2.25rem, 5.2vw, 4.5rem);
-  font-weight: 600;
-  letter-spacing: -0.04em;
-  line-height: 1;
-}
-.label {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.02em;
-  color: var(--color-mute);
-}
-.mono {
-  font-family: var(--font-mono);
-}
-
-/* Buttons */
-.btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.6rem;
-  min-height: 3rem;
-  padding: 0 1.25rem;
-  border-radius: var(--radius-sm);
-  font-size: 0.9rem;
-  font-weight: 500;
-  white-space: nowrap;
-  border: 1px solid var(--color-line-strong);
-  color: var(--color-ink);
-  background: transparent;
-  cursor: pointer;
-  transition:
-    background-color 0.25s var(--ease-out-expo),
-    border-color 0.25s var(--ease-out-expo),
-    color 0.25s var(--ease-out-expo);
-}
-.btn:hover {
-  border-color: var(--color-ink);
-}
-.btn:disabled {
-  opacity: 0.38;
-  cursor: not-allowed;
-  pointer-events: none;
-}
-.btn:active {
-  transform: translateY(1px);
-}
-.btn-primary {
-  background: var(--color-accent);
-  border-color: var(--color-accent);
-  color: var(--color-accent-ink);
-}
-.btn-primary:hover {
-  background: var(--color-ink);
-  border-color: var(--color-ink);
-}
-.btn-sm {
-  min-height: 2.25rem;
-  padding: 0 0.85rem;
-  font-size: 0.8rem;
-}
-
-/* Link underline that draws in */
-.link-u {
-  background: linear-gradient(currentColor, currentColor) 0 100% / 0 1px no-repeat;
-  transition: background-size 0.4s var(--ease-out-expo);
-}
-.link-u:hover,
-.link-u:focus-visible {
-  background-size: 100% 1px;
-}
-
-}
-
-/* Pixel scene for the LAN game preview */
 .pixel {
   image-rendering: pixelated;
   box-shadow:
     0 0 0 2px var(--color-ink),
-    4px 4px 0 2px var(--color-line-strong);
+    4px 4px 0 2px var(--color-accent);
 }
 
-/* Tabular figures for metrics */
 .tnum {
   font-variant-numeric: tabular-nums;
 }
 
-/* Thin scrollbars for in-page scroll regions */
 .scroll-thin {
   scrollbar-width: thin;
   scrollbar-color: var(--color-line-strong) transparent;
+}
+
+/* Single marquee under the hero. Transform only; static when reduced motion is requested. */
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+.marquee-track {
+  animation: marquee 48s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
+  }
+}
+
+.svg-btn {
+  cursor: pointer;
+}
+.svg-btn:focus-visible {
+  outline: 2px solid var(--color-ink);
+  outline-offset: 4px;
+}
+
+/* Marks UI that the AnswerFold extension adds on top of the host page. */
+.af-glow {
+  border: 1px solid var(--color-accent);
+  box-shadow:
+    0 0 0 1px rgb(48 133 254 / 0.35),
+    0 0 14px rgb(48 133 254 / 0.5),
+    0 0 34px rgb(48 133 254 / 0.2);
 }

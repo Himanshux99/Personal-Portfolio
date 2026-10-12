@@ -2,6 +2,7 @@ import { useMemo, useState } from "react";
 import { motion } from "motion/react";
 import { ecosystem, languages, playground, projects } from "../data/content";
 import Reveal from "./Reveal";
+import SplitHeading from "./SplitHeading";
 
 interface Source {
   id: string;
@@ -23,12 +24,11 @@ export default function Ecosystem() {
   const state = (item: string) => (!selected ? "idle" : used.has(item) ? "on" : "off");
 
   return (
-    <section id="stack" aria-labelledby="stack-title" className="section-pad border-t border-line">
+    <section id="stack" aria-labelledby="stack-title" className="section-pad border-t border-ink">
       <div className="shell">
         <Reveal>
-          <h2 id="stack-title" className="h2 max-w-[14ch]">
-            Tools, in context
-          </h2>
+          <p className="label">Stack</p>
+          <SplitHeading id="stack-title" className="h2 mt-4 max-w-[14ch]" text="Tools, in context" />
           <p className="mt-6 max-w-[52ch] text-lg text-ink/75">
             Not every tool here is equally deep, and nothing is scored. Pick a project to see what it actually used.
           </p>
@@ -42,8 +42,8 @@ export default function Ecosystem() {
                 type="button"
                 aria-pressed={selected === s.id}
                 onClick={() => setSelected((cur) => (cur === s.id ? null : s.id))}
-                className={`relative border px-3 py-2 text-sm transition-colors ${
-                  selected === s.id ? "border-accent text-accent-ink" : "border-line-strong text-ink/80 hover:border-ink hover:text-ink"
+                className={`relative border px-3 py-2 font-mono text-[0.7rem] uppercase transition-colors ${
+                  selected === s.id ? "border-ink text-accent-ink" : "border-line-strong text-ink/80 hover:border-ink hover:text-ink"
                 }`}
               >
                 {selected === s.id && (
@@ -59,19 +59,19 @@ export default function Ecosystem() {
           </div>
         </Reveal>
 
-        <div className="mt-14 grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-5">
+        <div className="mt-14 grid border border-ink sm:grid-cols-2 lg:grid-cols-5">
           {ecosystem.map((g, gi) => (
-            <Reveal key={g.title} delay={gi * 0.05}>
-              <div className="relative border-t border-line-strong pt-4">
-                <span aria-hidden className="absolute -top-px left-0 h-px w-10 bg-accent" />
-                <h3 className="text-xl font-medium tracking-tight">{g.title}</h3>
+            <Reveal key={g.title} delay={gi * 0.05} className="border-b border-line-strong last:border-b-0 sm:odd:border-r lg:border-b-0 lg:border-r lg:last:border-r-0">
+              <div className="relative p-5 md:p-6">
+                <span className="mono text-[0.7rem] text-mute">[{String(gi + 1).padStart(2, "0")}]</span>
+                <h3 className="mt-3 text-xl font-semibold uppercase tracking-[-0.03em]">{g.title}</h3>
                 <p className="mt-1 text-sm text-mute">{g.blurb}</p>
-                <ul className="mono mt-5 space-y-2 text-[0.8rem]">
+                <ul className="mono mt-5 space-y-2 text-[0.78rem]">
                   {g.items.map((item) => (
                     <li
                       key={item}
                       data-state={state(item)}
-                      className="flex items-center gap-2 transition-opacity duration-300 data-[state=off]:opacity-30 data-[state=on]:text-accent"
+                      className="flex items-center gap-2 transition-opacity duration-300 data-[state=off]:opacity-30 data-[state=on]:text-signal"
                     >
                       <span
                         aria-hidden
@@ -86,15 +86,15 @@ export default function Ecosystem() {
           ))}
         </div>
 
-        <Reveal className="mt-14">
-          <div className="border-t border-line pt-6">
+        <Reveal className="mt-6">
+          <div className="border border-ink p-5 md:p-6">
             <p className="label">Languages</p>
             <ul className="mono mt-3 flex flex-wrap gap-x-6 gap-y-2 text-sm">
               {languages.map((l) => (
                 <li
                   key={l}
                   data-state={state(l)}
-                  className="transition-opacity duration-300 data-[state=off]:opacity-30 data-[state=on]:text-accent"
+                  className="transition-opacity duration-300 data-[state=off]:opacity-30 data-[state=on]:text-signal"
                 >
                   {l}
                 </li>

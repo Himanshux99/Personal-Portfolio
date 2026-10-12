@@ -44,7 +44,7 @@ export const projects: Project[] = [
     id: "loan",
     name: "Fair Loan Underwriting",
     kicker: "Credit assessment for people with no credit history, with visible reasons and a human making the call.",
-    status: { label: "Fellowship proposal and concept", kind: "concept" },
+    status: { label: "Proposal and concept", kind: "concept" },
     problem:
       "New-to-credit borrowers are often rejected because there is no file to score. Bank transaction patterns can say more, but only if the decision can be explained and checked for bias.",
     built: [
@@ -56,7 +56,7 @@ export const projects: Project[] = [
     ],
     stack: ["Python and Pandas", "Scikit-learn", "SHAP", "Fairlearn", "FastAPI", "PostgreSQL"],
     honesty:
-      "This began as a fellowship proposal and technical design. It is not a deployed lending system, and the applicant shown on this page is synthetic.",
+      "This began as a proposal and technical design. It is not a deployed lending system, and the applicant shown on this page is synthetic.",
     links: [],
   },
   {
@@ -67,13 +67,13 @@ export const projects: Project[] = [
     problem:
       "Long AI chats turn into endless scrolling. Finding the question you asked an hour ago takes longer than it should.",
     built: [
-      "Compact mode that shortens long answers",
-      "Smart collapsing of answers, with expand and collapse controls",
-      "A prompt navigator with jump-to-prompt",
+      "Compact mode that folds long answers to a few lines",
+      "Expand a block 20 lines at a time, or show the whole answer",
+      "A prompt navigator with jump-to-prompt, and collapse all",
     ],
     stack: ["JavaScript", "HTML5", "CSS3"],
     honesty:
-      "Still a concept. The browser above is a working mock of the interaction using placeholder text, not the extension itself.",
+      "Still a concept. The page above is a working mock that borrows ChatGPT's dark look to show the idea, with placeholder text. It is not affiliated with OpenAI and it is not the extension itself.",
     links: [],
   },
   {
@@ -258,10 +258,6 @@ export const background = {
   degree: "B.E. in Information Technology",
   years: "2024-2028",
   highlights: [
-    {
-      title: "CHANAKYA Fellowship",
-      body: "Shortlisted to present a proposal. The proposal became the loan underwriting concept.",
-    },
     { title: "NSS technical contributions", body: "Builds tools for the NSS unit, including the report generator." },
     { title: "Google Student Ambassador", body: "Community and campus activities." },
     { title: "NPTEL", body: "Programming in Java certification." },

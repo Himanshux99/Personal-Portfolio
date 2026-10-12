@@ -47,7 +47,7 @@ export default function ReportFlow() {
             ))}
           </div>
         </Step>
-        <ArrowDown aria-hidden size={18} strokeWidth={1.5} className="mx-auto shrink-0 text-accent" />
+        <ArrowDown aria-hidden size={18} strokeWidth={1.5} className="mx-auto shrink-0 text-signal" />
         <Step n="parse" title="Extract and draft" delay={0.12}>
           <dl className="space-y-1 text-[0.8rem]">
             {fields.map(([k, v]) => (
@@ -58,7 +58,7 @@ export default function ReportFlow() {
             ))}
           </dl>
         </Step>
-        <ArrowDown aria-hidden size={18} strokeWidth={1.5} className="mx-auto shrink-0 text-accent" />
+        <ArrowDown aria-hidden size={18} strokeWidth={1.5} className="mx-auto shrink-0 text-signal" />
         <Step n="out" title="Report.docx" delay={0.24}>
           <ul className="grid grid-cols-2 gap-x-3 gap-y-1 text-[0.8rem]">
             {sections.map((s) => (

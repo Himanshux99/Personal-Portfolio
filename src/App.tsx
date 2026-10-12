@@ -2,6 +2,9 @@ import { MotionConfig } from "motion/react";
 import Nav from "./components/Nav";
 import ScrollProgress from "./components/ScrollProgress";
 import Hero from "./components/Hero";
+import Frame from "./components/Frame";
+import Marquee from "./components/Marquee";
+import Statement from "./components/Statement";
 import Work from "./components/Work";
 import About from "./components/About";
 import Ecosystem from "./components/Ecosystem";
@@ -9,6 +12,8 @@ import Playground from "./components/Playground";
 import Background from "./components/Background";
 import Contact from "./components/Contact";
 import Footer from "./components/Footer";
+import Loader from "./components/Loader";
+import Cursor from "./components/Cursor";
 
 export default function App() {
   return (
@@ -20,10 +25,15 @@ export default function App() {
       >
         Skip to content
       </a>
+      <Loader />
+      <Cursor />
+      <Frame />
       <ScrollProgress />
       <Nav />
       <main id="main">
         <Hero />
+        <Marquee />
+        <Statement />
         <Work />
         <About />
         <Ecosystem />
